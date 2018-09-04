@@ -92,7 +92,7 @@ static const char	*src_spec(t_prnt *s, const char *str, intmax_t *n)
 		digits_puox(s, *str, 0, 8);
 	else if (*str == 'b' || *str == 'B')
 		digits_puox(s, *str, 0, 2);
-	if (*str == 'n')
+	else if (*str == 'n')
 	{
 		if (!(n = va_arg(s->ap, intmax_t*)))
 			return (++str);
