@@ -54,12 +54,7 @@ void				use_flag_char(t_prnt *s, wchar_t c)
 
 void				use_flag_str(t_prnt *s, unsigned char *str, intmax_t len)
 {
-	if (!str && s->fr == 1)
-	{
-		use_flag_nonprnt_char(s, 0);
-		return ;
-	}
-	else if (!str)
+	if (!str)
 		str = (unsigned char*)"(null)";
 	len = ft_strlen(str);
 	if (s->prec <= len && s->prec > -1)

@@ -29,13 +29,14 @@ HEAD_FLAGS	=	-I $(INC_DIR)
 
 BG			=	"\033[32;1m"
 BR			=	"\033[31;1m"
+EOC			=	"\033[0m"
 
 all: $(NAME)
 	
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo ${BG}"[✓] $(NAME)"
+	@echo ${BG}"[✓] $(NAME)"${EOC}
 
 $(OBJ): | $(OBJ_DIR)
 

@@ -63,7 +63,7 @@ static inline void			src_spec_c_s(t_prnt *s, char spec)
 			use_flag_str(s, NULL, 0) : use_flag_unistr(s, str, 0);
 	}
 	else if (spec == 's')
-		use_flag_str(s, (unsigned char*)va_arg(s->ap, intmax_t), 0);
+		use_flag_str(s, (unsigned char*)va_arg(s->ap, unsigned char*), 0);
 	else if (spec == 'k')
 	{
 		use_flag_str(s, (unsigned char*)ctime(&timer), 0);

@@ -14,10 +14,10 @@
 
 void	print_str(t_prnt *s, unsigned char *str, intmax_t len)
 {
-	if (s->i + len >= BUFF_SIZE)
-		print_buf(s);
 	while (len > 0)
 	{
+		if (s->i >= BUFF_SIZE)
+			print_buf(s);
 		if (s->fr == 1 && (*str <= 31 || *str == 127))
 			print_nonprnt_char(s, *str++, 2);
 		else if (s->fr == 1 && *str >= 128 && *str <= 159)
@@ -112,14 +112,14 @@ void	print_width_prec(t_prnt *s, char f, char c)
 {
 	while (s->width > 0 && f == 'w')
 	{
-		if (s->i == BUFF_SIZE)
+		if (s->i >= BUFF_SIZE)
 			print_buf(s);
 		s->buf[s->i++] = c;
 		s->width--;
 	}
 	while (s->prec > 0 && f == 'p')
 	{
-		if (s->i == BUFF_SIZE)
+		if (s->i >= BUFF_SIZE)
 			print_buf(s);
 		s->buf[s->i++] = c;
 		s->prec--;

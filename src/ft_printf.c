@@ -65,9 +65,9 @@ int					ft_vdprintf(int fd, const char *format, va_list ap)
 			flag_default(&s);
 			format = src_flag(&s, ++format);
 		}
-		else if (!format)
+		else if (*format == '{')
 			format = valid_color(&s, ++format);
-		else if ((s.tcol || s.bcol) && !format)
+		else if ((s.tcol || s.bcol) && *format == '\n')
 			format = print_else(&s, format);
 		else
 		{
