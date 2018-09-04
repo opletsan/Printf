@@ -19,7 +19,7 @@
 # include <locale.h>
 # include <time.h>
 
-# define BUFF_SIZE 4096
+# define BUFF_SIZE 3072
 
 # define CEOC  "\x1B[00m"
 

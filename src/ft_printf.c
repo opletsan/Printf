@@ -55,7 +55,7 @@ int			ft_vdprintf(int fd, const char *format, va_list ap)
 {
 	t_prnt	s;
 
-	if (!format || fd < 0 || (read(fd, s.buf, 0) < 0))
+	if (!format || write(fd, s.buf, 0) < 0)
 		return (-1);
 	start_finish_init(&s, fd, ap, 's');
 	while (*format)
@@ -67,7 +67,7 @@ int			ft_vdprintf(int fd, const char *format, va_list ap)
 		}
 		else if (*format == '{')
 			format = valid_color(&s, ++format);
-		else if (*format == '\n' && (s.tcol || s.bcol))
+		else if ((s.tcol || s.bcol) && *format == '\n')
 			format = print_else(&s, format);
 		else
 		{
@@ -99,7 +99,7 @@ int			ft_dprintf(int fd, const char *format, ...)
 	va_list	ap;
 	int		ret;
 
-	if (!format || fd < 0 || (read(fd, s.buf, 0) < 0))
+	if (!format || write(fd, s.buf, 0) < 0)
 		return (-1);
 	va_start(ap, format);
 	ret = ft_vdprintf(fd, format, ap);
