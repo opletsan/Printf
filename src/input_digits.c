@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int			ft_numlen(uintmax_t n, int base)
+int					ft_numlen(uintmax_t n, int base)
 {
 	int	len;
 
@@ -22,7 +22,7 @@ int			ft_numlen(uintmax_t n, int base)
 	return (len);
 }
 
-static void	use_flag_digits(t_prnt *s, uintmax_t n, int len, int base)
+static inline void	use_flag_digits(t_prnt *s, uintmax_t n, int len, int base)
 {
 	len += (s->fapos == 1 && (base == 10 || base == 8)) ? (len - 1) / 3 : 0;
 	len += (s->fapos == 1 && base == 2) ? (len - 1) / 4 : 0;
@@ -51,7 +51,7 @@ static void	use_flag_digits(t_prnt *s, uintmax_t n, int len, int base)
 		print_width_prec(s, 'w', ' ');
 }
 
-void		digits_di(t_prnt *s, char spec, intmax_t tmp)
+void				digits_di(t_prnt *s, char spec, intmax_t tmp)
 {
 	if (s->fsize == 7 || s->fsize == 6)
 		tmp = va_arg(s->ap, ssize_t);
@@ -78,7 +78,7 @@ void		digits_di(t_prnt *s, char spec, intmax_t tmp)
 		use_flag_digits(s, tmp, ft_numlen(tmp, 10), 10);
 }
 
-void		digits_puox(t_prnt *s, char spec, uintmax_t tmp, int base)
+void				digits_puox(t_prnt *s, char spec, uintmax_t tmp, int base)
 {
 	if (spec == 'X' || spec == 'B')
 		(s->fbase = -base);

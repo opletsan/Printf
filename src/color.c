@@ -12,14 +12,14 @@
 
 #include "ft_printf.h"
 
-void			print_buf(t_prnt *s)
+void					print_buf(t_prnt *s)
 {
 	write(s->fd, s->buf, s->i);
 	s->ret += s->i;
 	s->i = 0;
 }
 
-static size_t	*check_color2(t_prnt *s, int *dec)
+static inline size_t	*check_color2(t_prnt *s, int *dec)
 {
 	if (*dec == C_CEOC)
 	{
@@ -46,7 +46,7 @@ static size_t	*check_color2(t_prnt *s, int *dec)
 	return (0);
 }
 
-static int		check_color1(t_prnt *s, int *dec)
+static inline int		check_color1(t_prnt *s, int *dec)
 {
 	size_t	*b;
 	size_t	*a;
@@ -74,7 +74,7 @@ static int		check_color1(t_prnt *s, int *dec)
 	return (1);
 }
 
-const char		*valid_color(t_prnt *s, const char *str)
+const char				*valid_color(t_prnt *s, const char *str)
 {
 	int	i;
 
@@ -98,7 +98,7 @@ const char		*valid_color(t_prnt *s, const char *str)
 	return (str + i + 1);
 }
 
-const char		*print_else(t_prnt *s, const char *str)
+const char				*print_else(t_prnt *s, const char *str)
 {
 	if (s->i + 19 >= BUFF_SIZE)
 		print_buf(s);

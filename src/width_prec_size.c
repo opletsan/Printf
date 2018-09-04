@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static int	check_minus(t_prnt *s, int ret, int i)
+static inline int	check_minus(t_prnt *s, int ret, int i)
 {
 	if (ret < 0 && i == 1)
 	{
@@ -25,7 +25,7 @@ static int	check_minus(t_prnt *s, int ret, int i)
 	return (ret);
 }
 
-static int	star(t_prnt *s, const char **str, int ret, int i)
+static inline int	star(t_prnt *s, const char **str, int ret, int i)
 {
 	static va_list	aptmp;
 
@@ -49,7 +49,7 @@ static int	star(t_prnt *s, const char **str, int ret, int i)
 	return (check_minus(s, ret, i));
 }
 
-const char	*width(t_prnt *s, const char *str)
+const char			*width(t_prnt *s, const char *str)
 {
 	int		tmp;
 
@@ -74,7 +74,7 @@ const char	*width(t_prnt *s, const char *str)
 	return (str);
 }
 
-const char	*precision(t_prnt *s, const char *str)
+const char			*precision(t_prnt *s, const char *str)
 {
 	s->prec = 0;
 	while (*str >= '0' && *str <= '9')
@@ -85,7 +85,7 @@ const char	*precision(t_prnt *s, const char *str)
 	return (str);
 }
 
-const char	*size(t_prnt *s, const char *str)
+const char			*size(t_prnt *s, const char *str)
 {
 	if (*str == 'h' && s->fsize == 2)
 		s->fsize = 1;

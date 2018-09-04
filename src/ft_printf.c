@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static void	flag_default(t_prnt *s)
+static inline void	flag_default(t_prnt *s)
 {
 	s->f = 0;
 	s->fr = 0;
@@ -29,7 +29,7 @@ static void	flag_default(t_prnt *s)
 	s->fdol = 0;
 }
 
-static void	start_finish_init(t_prnt *s, int fd, va_list ap, char flag)
+static inline void	start_finish_init(t_prnt *s, int fd, va_list ap, char flag)
 {
 	if (flag == 's')
 	{
@@ -51,7 +51,7 @@ static void	start_finish_init(t_prnt *s, int fd, va_list ap, char flag)
 	}
 }
 
-int			ft_vdprintf(int fd, const char *format, va_list ap)
+int					ft_vdprintf(int fd, const char *format, va_list ap)
 {
 	t_prnt	s;
 
@@ -80,7 +80,7 @@ int			ft_vdprintf(int fd, const char *format, va_list ap)
 	return (s.ret);
 }
 
-int			ft_printf(const char *format, ...)
+int					ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		ret;
@@ -93,7 +93,7 @@ int			ft_printf(const char *format, ...)
 	return (ret);
 }
 
-int			ft_dprintf(int fd, const char *format, ...)
+int					ft_dprintf(int fd, const char *format, ...)
 {
 	t_prnt	s;
 	va_list	ap;

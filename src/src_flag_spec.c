@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void				src_arg(t_prnt *s, int arg)
+void						src_arg(t_prnt *s, int arg)
 {
 	if (arg != 0)
 		va_copy(s->ap, s->begin);
@@ -20,7 +20,7 @@ void				src_arg(t_prnt *s, int arg)
 		va_arg(s->ap, int);
 }
 
-static void			check_flag(t_prnt *s, char flag)
+static inline void			check_flag(t_prnt *s, char flag)
 {
 	if (flag == '-')
 	{
@@ -44,7 +44,7 @@ static void			check_flag(t_prnt *s, char flag)
 		s->fr = 1;
 }
 
-static void			src_spec_c_s(t_prnt *s, char spec)
+static inline void			src_spec_c_s(t_prnt *s, char spec)
 {
 	wchar_t			*str;
 	const time_t	timer = time(NULL);
@@ -72,7 +72,7 @@ static void			src_spec_c_s(t_prnt *s, char spec)
 	}
 }
 
-static const char	*src_spec(t_prnt *s, const char *str, intmax_t *n)
+static inline const char	*src_spec(t_prnt *s, const char *str, intmax_t *n)
 {
 	src_arg(s, s->fdol);
 	if (*str == 'c' || *str == 'C' || *str == 's' || *str == 'S' ||
@@ -101,7 +101,7 @@ static const char	*src_spec(t_prnt *s, const char *str, intmax_t *n)
 	return (++str);
 }
 
-const char			*src_flag(t_prnt *s, const char *str)
+const char					*src_flag(t_prnt *s, const char *str)
 {
 	while (*str)
 	{

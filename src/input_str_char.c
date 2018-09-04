@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static size_t	ft_strlen(unsigned char *str)
+static size_t		ft_strlen(unsigned char *str)
 {
 	size_t	i;
 
@@ -22,7 +22,7 @@ static size_t	ft_strlen(unsigned char *str)
 	return (i);
 }
 
-static int		ft_unilen(wchar_t c)
+static inline int	ft_unilen(wchar_t c)
 {
 	if (c <= 127)
 		return (1);
@@ -35,7 +35,7 @@ static int		ft_unilen(wchar_t c)
 	return (0);
 }
 
-void			use_flag_char(t_prnt *s, wchar_t c)
+void				use_flag_char(t_prnt *s, wchar_t c)
 {
 	int	len;
 
@@ -52,7 +52,7 @@ void			use_flag_char(t_prnt *s, wchar_t c)
 		print_width_prec(s, 'w', ' ');
 }
 
-void			use_flag_str(t_prnt *s, unsigned char *str, intmax_t len)
+void				use_flag_str(t_prnt *s, unsigned char *str, intmax_t len)
 {
 	if (!str && s->fr == 1)
 	{
@@ -77,7 +77,7 @@ void			use_flag_str(t_prnt *s, unsigned char *str, intmax_t len)
 		print_width_prec(s, 'w', ' ');
 }
 
-void			use_flag_unistr(t_prnt *s, wchar_t *str, intmax_t len)
+void				use_flag_unistr(t_prnt *s, wchar_t *str, intmax_t len)
 {
 	wchar_t	*tmp;
 
