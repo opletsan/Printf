@@ -67,8 +67,8 @@ typedef struct		s_prnt
 	int				fd;
 	va_list			ap;
 	va_list			begin;
-	const char		*tcol;
-	const char		*bcol;
+	char			*tcol;
+	char			*bcol;
 	intmax_t		i;
 	intmax_t		ret;
 	int				width;
