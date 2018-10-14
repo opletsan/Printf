@@ -47,11 +47,11 @@ void	use_flag_nonprnt_char(t_prnt *s, unsigned char c)
 	else if (c >= 128 && c <= 159)
 		len = 4;
 	s->width -= 1;
-	if (s->fzero == 0 && s->fminus == 0)
+	if (!s->fzero && !s->fminus)
 		print_width_prec(s, 'w', ' ');
-	if (s->fzero == 1)
+	if (s->fzero)
 		print_width_prec(s, 'w', '0');
 	print_nonprnt_char(s, c, len);
-	if (s->fminus == 1)
+	if (s->fminus)
 		print_width_prec(s, 'w', ' ');
 }

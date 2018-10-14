@@ -88,7 +88,7 @@ typedef struct		s_prnt
 
 void				print_nonprnt_char(t_prnt *s, unsigned char c, int len);
 void				use_flag_nonprnt_char(t_prnt *s, unsigned char c);
-int					ft_numlen(uintmax_t n, int base);
+int					ft_num_len(uintmax_t n, int base);
 void				print_str(t_prnt *s, unsigned char *str, intmax_t len);
 void				print_buf(t_prnt *s);
 void				itoa_uintmax(t_prnt *s, uintmax_t n, int len, int base);

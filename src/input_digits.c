@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int					ft_numlen(uintmax_t n, int base)
+int					ft_num_len(uintmax_t n, int base)
 {
 	int	len;
 
@@ -24,30 +24,30 @@ int					ft_numlen(uintmax_t n, int base)
 
 static inline void	use_flag_digits(t_prnt *s, uintmax_t n, int len, int base)
 {
-	len += (s->fapos == 1 && (base == 10 || base == 8)) ? (len - 1) / 3 : 0;
-	len += (s->fapos == 1 && base == 2) ? (len - 1) / 4 : 0;
-	len += (s->fapos == 0 && s->fsharp == 1 && base == 2) ? (len - 1) / 8 : 0;
-	s->fbase *= (s->fsharp == 1 && s->fbase == 8 && ((len == 0 && n == 0) ||
-		(s->prec <= len && n != 0))) ? (-1) : 1;
-	s->width -= ((base == 16 && s->fsharp == 2) || ((s->f == 1 || (s->f == 0 &&
-		s->fplus == 1) || (s->fspace == 1 && s->f == 0)) && base == 10) ||
-		(s->fsharp == 1 && (s->fbase == -8 || (base == 16 && n != 0))));
-	s->width -= (base == 16 && ((s->fsharp == 1 && n != 0) || s->fsharp == 2));
+	len += (s->fapos && (base == 10 || base == 8)) ? (len - 1) / 3 : 0;
+	len += (s->fapos && base == 2) ? (len - 1) / 4 : 0;
+	len += (!s->fapos && s->fsharp == 1 && base == 2) ? (len - 1) / 8 : 0;
+	s->fbase *= (s->fsharp && s->fbase == 8 && ((!len && !n) ||
+		(s->prec <= len && n))) ? (-1) : 1;
+	s->width -= ((base == 16 && s->fsharp == 2) || ((s->f || (!s->f &&
+		s->fplus) || (s->fspace && !s->f)) && base == 10) ||
+		(s->fsharp == 1 && (s->fbase == -8 || (base == 16 && n))));
+	s->width -= (base == 16 && ((s->fsharp == 1 && n) || s->fsharp == 2));
 	s->prec *= (s->prec != -1 && ((s->prec -= len) < 0)) ? 0 : 1;
 	s->width -= len;
-	if (s->width > s->prec && s->fminus == 0 &&
-		(s->prec > -1 || (s->prec == -1 && s->fzero == 0)))
+	if (s->width > s->prec && !s->fminus &&
+		(s->prec > -1 || (s->prec == -1 && !s->fzero)))
 	{
 		s->width -= (s->prec == -1) ? 0 : s->prec;
 		print_width_prec(s, 'w', ' ');
 	}
 	print_sign(s, n, len);
-	if (s->fzero == 1 && s->prec == -1)
+	if (s->fzero && s->prec == -1)
 		print_width_prec(s, 'w', '0');
 	s->width -= (s->prec == -1) ? 0 : s->prec;
 	print_width_prec(s, 'p', '0');
-	len ? itoa_uintmax(s, n, ft_numlen(n, base), base) : 0;
-	if (s->width > s->prec && s->fminus == 1)
+	len ? itoa_uintmax(s, n, ft_num_len(n, base), base) : 0;
+	if (s->width > s->prec && s->fminus)
 		print_width_prec(s, 'w', ' ');
 }
 
@@ -72,10 +72,10 @@ void				digits_di(t_prnt *s, char spec, intmax_t tmp)
 	else if (tmp < 0)
 	{
 		s->f = 1;
-		use_flag_digits(s, (tmp * (-1)), ft_numlen(tmp * (-1), 10), 10);
+		use_flag_digits(s, (tmp * (-1)), ft_num_len(tmp * (-1), 10), 10);
 	}
 	else
-		use_flag_digits(s, tmp, ft_numlen(tmp, 10), 10);
+		use_flag_digits(s, tmp, ft_num_len(tmp, 10), 10);
 }
 
 void				digits_puox(t_prnt *s, char spec, uintmax_t tmp, int base)
@@ -100,8 +100,8 @@ void				digits_puox(t_prnt *s, char spec, uintmax_t tmp, int base)
 		tmp = (unsigned char)va_arg(s->ap, unsigned int);
 	s->fplus = 0;
 	s->fspace = 0;
-	if (s->prec == 0 && tmp == 0)
+	if (!s->prec && !tmp)
 		use_flag_digits(s, tmp, 0, base);
 	else
-		use_flag_digits(s, tmp, ft_numlen(tmp, base), base);
+		use_flag_digits(s, tmp, ft_num_len(tmp, base), base);
 }

@@ -24,13 +24,13 @@ static size_t		ft_strlen(unsigned char *str)
 
 static inline int	ft_unilen(wchar_t c)
 {
-	if (c <= 127)
+	if (c <= 0x7F)
 		return (1);
-	else if (c <= 2047)
+	else if (c <= 0x7FF)
 		return (2);
-	else if (c <= 65535)
+	else if (c <= 0xFFFF)
 		return (3);
-	else if (c <= 1114111)
+	else if (c <= 0x1FFFFF)
 		return (4);
 	return (0);
 }
@@ -43,12 +43,12 @@ void				use_flag_char(t_prnt *s, wchar_t c)
 	if (s->fsize == 3)
 		len = ft_unilen(c);
 	s->width -= len;
-	if (s->fzero == 0 && s->fminus == 0)
+	if (!s->fzero && !s->fminus)
 		print_width_prec(s, 'w', ' ');
-	if (s->fzero == 1)
+	if (s->fzero)
 		print_width_prec(s, 'w', '0');
 	print_unicode(s, c, len);
-	if (s->fminus == 1)
+	if (s->fminus)
 		print_width_prec(s, 'w', ' ');
 }
 
@@ -63,12 +63,12 @@ void				use_flag_str(t_prnt *s, unsigned char *str, intmax_t len)
 		s->prec = 0;
 	}
 	s->width -= len;
-	if (s->fzero == 0 && s->fminus == 0)
+	if (!s->fzero && !s->fminus)
 		print_width_prec(s, 'w', ' ');
-	else if (s->fzero == 1)
+	else if (s->fzero)
 		print_width_prec(s, 'w', '0');
 	print_str(s, str, len);
-	if (s->fminus == 1)
+	if (s->fminus)
 		print_width_prec(s, 'w', ' ');
 }
 
@@ -88,14 +88,14 @@ void				use_flag_unistr(t_prnt *s, wchar_t *str, intmax_t len)
 		tmp++;
 	}
 	s->width -= len;
-	if (s->fzero == 0 && s->fminus == 0)
+	if (!s->fzero && !s->fminus)
 		print_width_prec(s, 'w', ' ');
-	else if (s->fzero == 1)
+	else if (s->fzero)
 		print_width_prec(s, 'w', '0');
 	if (s->i + len >= BUFF_SIZE)
 		print_buf(s);
 	while (++str < tmp)
 		print_unicode(s, *str, ft_unilen(*str));
-	if (s->fminus == 1)
+	if (s->fminus)
 		print_width_prec(s, 'w', ' ');
 }
